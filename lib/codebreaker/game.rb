@@ -6,7 +6,7 @@ module Codebreaker
 
     attr_reader :count, :hint_quantity, :attempts_quantity, :player_arr
 
-    def initialize(name, attempts)
+    def initialize(name = 'Player', attempts = 10)
       @player_name = name
       @attempts_quantity = attempts
       @secret_arr, @player_arr = [], []
