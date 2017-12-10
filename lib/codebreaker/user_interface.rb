@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'game'
 require 'yaml'
 
 module Codebreaker
+  # Describes codebreaker game interface
   class Interface
     PHRASES = 'lib/codebreaker/phrases.yml'.freeze
-
 
     attr_reader :phrases
 
@@ -20,19 +22,19 @@ module Codebreaker
       puts val
     end
 
-    def get_player_name
+    def take_player_name
       message(@phrases[:welcome])
       @player_name = gets.chomp
-      get_player_name if @player_name.empty?
+      take_player_name if @player_name.empty?
     end
 
-    def get_attempts_quantity
+    def take_attempts_quantity
       message(@phrases[:attempts_quantity])
       @attempts_quantity = gets.to_i
-      get_attempts_quantity if @attempts_quantity.zero?
+      take_attempts_quantity if @attempts_quantity.zero?
     end
 
-    def get_player_input
+    def take_player_input
       message(@phrases[:player_input])
       @user_input = gets.chomp
     end
@@ -59,16 +61,12 @@ module Codebreaker
 
     def attempt
       loop do
-        get_player_input
-        if @user_input == 'hint'
-          result = @game.check_hint
-        else
-          result = @game.guess(@user_input)
-        end
-        result = 'Invalid data' unless result
+        take_player_input
+        result = @user_input == 'hint' ? @game.check_hint : @game.guess(@user_input)
+        result ||= 'Invalid data'
         p result
         break if display_you_win
-        break if @game.attempts_quantity == 0
+        break if @game.attempts_quantity.zero?
         break if @user_input == 'exit'
       end
       display_game_over
@@ -77,8 +75,8 @@ module Codebreaker
     end
 
     def launch
-      get_player_name
-      get_attempts_quantity
+      take_player_name
+      take_attempts_quantity
       new_game
       attempt
     end
