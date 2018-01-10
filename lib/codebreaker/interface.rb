@@ -6,7 +6,7 @@ require 'yaml'
 module Codebreaker
   # Describes codebreaker game interface
   class Interface
-    PHRASES = 'lib/codebreaker/phrases.yml'.freeze
+    PHRASES = File.expand_path('../phrases.yml', __FILE__)
 
     attr_reader :phrases
 
@@ -65,7 +65,7 @@ module Codebreaker
         result = @user_input == 'hint' ? @game.check_hint : @game.guess(@user_input)
         result ||= 'Invalid data'
         p result
-        break if display_you_win
+        break if @game.victory? == true
         break if @game.attempts_quantity.zero?
         break if @user_input == 'exit'
       end

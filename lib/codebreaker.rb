@@ -1,7 +1,10 @@
-require 'codebreaker/version'
-require 'codebreaker/game'
-require 'codebreaker/user_interface'
+require_relative 'codebreaker/version'
+require_relative 'codebreaker/game'
+require_relative 'codebreaker/interface'
 
 module Codebreaker
-  # Your code goes here...
+  Codebreaker::Game.new
+
+  # for launch in console
+  # Codebreaker::Interface.new.launch
 end

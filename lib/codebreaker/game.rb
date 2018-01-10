@@ -7,8 +7,8 @@ module Codebreaker
   class Game
     SECRET_CODE_SIZE = 4
 
-    # attr_accessor :player_name
-    attr_reader :count, :hint_quantity, :attempts_quantity, :player_arr
+    attr_reader :count, :hint_quantity, :attempts_quantity, :secret_arr
+    attr_accessor :player_arr
 
     def initialize(name = 'Player', attempts = 10)
       @player_name = name
@@ -67,15 +67,15 @@ module Codebreaker
     end
 
     def victory?
-      @player_arr == @secret_arr
+      player_arr == secret_arr
     end
 
     def lose?
-      @attempts_quantity <= 0 && !victory?
+      attempts_quantity <= 0
     end
 
     def valid_data?
-      @player_arr.is_a?(Array) && @player_arr.size == @secret_arr.size
+      player_arr.is_a?(Array) && player_arr.size == secret_arr.size
     end
 
     def save_result(name, count, player_arr)
@@ -89,7 +89,7 @@ module Codebreaker
     def take_hint
       hint = '*' * SECRET_CODE_SIZE
       random = rand(SECRET_CODE_SIZE)
-      hint[random] = @secret_arr[random].to_s
+      hint[random] = secret_arr[random].to_s
       hint
     end
 
