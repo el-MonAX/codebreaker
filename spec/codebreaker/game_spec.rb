@@ -3,7 +3,6 @@ require 'spec_helper'
 module Codebreaker
   RSpec.describe Codebreaker::Game do
     SECRET_CODE_SIZE = 4
-    subject { Codebreaker::Game.new }
 
     context '#guess' do
       before { subject.instance_variable_set(:@secret_arr, [1, 2, 3, 4]) }
@@ -26,29 +25,29 @@ module Codebreaker
     end
 
     context '#str_to_arr' do
+      let(:player_arr) { subject.str_to_arr('1234') }
+
       it 'get array from player string' do
-        player_arr = subject.str_to_arr('1234')
         expect(player_arr).to eq [1, 2, 3, 4]
       end
 
       it 'array have SECRET_CODE_SIZE items count' do
-        player_arr = subject.str_to_arr('1234')
         expect(player_arr.size).to eq SECRET_CODE_SIZE
       end
     end
 
     context '#generate_code!' do
+      let(:secret_code) { subject.instance_variable_get(:@secret_arr) }
+
       it 'get secret code' do
         expect(:@secret_arr).not_to be_empty
       end
 
       it 'secret code have 4 items' do
-        secret_code = subject.instance_variable_get(:@secret_arr)
         expect(secret_code.size).to eq SECRET_CODE_SIZE
       end
 
       it 'secret code with numbers from 1 to 6' do
-        secret_code = subject.instance_variable_get(:@secret_arr)
         expect(secret_code.to_s).to match(/[1-6]+/)
       end
     end
@@ -113,14 +112,14 @@ module Codebreaker
     end
 
     context '#check_hint' do
+      let(:hint_quantity) { subject.instance_variable_get(:@hint_quantity) }
+
       it 'player have 1 hint ' do
-        hint_quantity = subject.instance_variable_get(:@hint_quantity)
         expect(hint_quantity).to eq 1
       end
 
       it 'return 0 if player has been used "hint"' do
         subject.check_hint
-        hint_quantity = subject.instance_variable_get(:@hint_quantity)
         expect(hint_quantity).to eq 0
       end
 
