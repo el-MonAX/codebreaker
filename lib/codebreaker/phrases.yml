@@ -1,0 +1,7 @@
+:welcome: 'Welcome to Codebreaker! Please enter your name: '
+:attempts_quantity: 'Please enter attempts quantity: '
+:player_input: "Please enter the 4 digits from 1 to 6 or 'hint': "
+:again: 'You want play again (y/n)? : '
+:result: 'You want save result (y/n)? : '
+:win: 'Congratulation. You win'
+:lose: 'Game over. Sorry, you lose'
